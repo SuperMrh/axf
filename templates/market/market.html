@@ -17,16 +17,17 @@
         <aside>
 
             <ul>
-
+                {% for types in foodtypes %}
                 <!--闪购分类展示-->
                     <li>
                         <!--链接地址，点击获取分类下的商品信息-->
-                        <a href=""></a>
+                        <a href="{% url 'axf:market_params' types.typeid '0' '0' %}">{{ types.typename }}</a>
+                        {% ifequal types.typeid typeid %}
                             <span class="yellowSlide"></span>
-
+                        {% endifequal %}
                     </li>
                 <!--处理数据结束-->
-
+                {% endfor %}
             </ul>
 
         </aside>
@@ -43,11 +44,11 @@
 
             <menu>
                 <ul>
-
+                    {% for gds in goods %}
                     <!--商品信息展示-->
                         <li>
                             <a href="#">
-                                <img src="" alt="">
+                                <img src="{{ gds.productimg }}" alt="">
                                 <div class="shoppingInfo">
                                     <h6></h6>
                                     <p class="detailTag">
@@ -55,11 +56,11 @@
                                         <span></span>
                                     </p>
                                     <p class="unit">
-
+                                        {{ gds.productlongname }}
                                     </p>
                                     <p class="price">
-                                        <span>¥</span>
-                                        <s>¥</s>
+                                        <span>¥{{ gds.price }}</span>
+                                        <s>¥{{ gds.marketprice }}</s>
                                     </p>
                                 </div>
                             </a>
@@ -69,15 +70,18 @@
                             <button goodsid="" class="addShopping">+</button>
                         </section>
                         </li>
+                    {% endfor %}
                     <!--处理数据结束-->
                 </ul>
 
                 <div id="all_types_container">
                     <div>
                         <!--加载全部分类的数据-->
-                            <a href="">
-                                <span></span>
+                        {% for child in chlid_list %}
+                            <a href="{% url 'axf:market_params' typeid child.1 '0' %}">
+                                <span>{{ child.0 }}</span>
                             </a>
+                        {% endfor %}
                         <!--处理数据结束-->
 
 
@@ -88,16 +92,16 @@
                 <div id="sort_container">
                     <div>
 {#      排序传递的也是状态码   0 , 1 ,2  , 3 ,4 ,5...                    #}
-                        <a href="">
+                        <a href="{% url 'axf:market_params' typeid cid 0 %}">
                             <span>综合排序</span>
                         </a>
-                        <a href="">
+                        <a href="{% url 'axf:market_params' typeid cid 1 %}">
                             <span>销量排序</span>
                         </a>
-                        <a href="">
+                        <a href="{% url 'axf:market_params' typeid cid 2 %}">
                             <span>价格降序</span>
                         </a>
-                        <a href="">
+                        <a href="{% url 'axf:market_params' typeid cid 3 %}">
                             <span>价格升序</span>
                         </a>
 

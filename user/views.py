@@ -72,3 +72,15 @@ def login(request):
         else:
             msg = '用户不存在'
             return render(request, 'user/user_login.html', {'msg': msg})
+
+
+def logout(request):
+    """
+    注销
+    """
+    if request.method == 'GET':
+        # 注销，删除当前登录的用户的cookies中的ticket信息
+        response = HttpResponseRedirect(reverse('user:login'))
+        response.delete_cookie('ticket')
+
+        return response
