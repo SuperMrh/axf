@@ -61,7 +61,7 @@
                         {% for cart in user_carts %}
                             <li class="menuList" cartid="">
                                 <div class="confirm">
-                                    <span>
+                                    <span id="changeselect_{{ cart.id }}">
                                         {% if cart.is_select == 1 %}
                                             <span id="cart_id_{{ cart.id }}" onclick="changeSelectStatus({{ cart.id }});">√</span>
                                         {% else %}
@@ -86,19 +86,15 @@
 
                         <li class="payTheBill">
 
-                            <div class="confirm" id="all_select">
+                            <div class="confirm" onclick="all_select(1)" id="all_select_id">
                                 <span>
-
-                                        <span>√</span>
-
-                                        <span></span>
-
+                                    <span id="select_id">√</span>
                                 </span>
                             </div>
 
                             <p>
                                 <span>全选</span>
-                                <span>总价:</span>
+                                <span id="count_price">总价:</span>
                             </p>
 
                             <span><a href="{% url 'axf:generate_order' %}">下单</a></span>

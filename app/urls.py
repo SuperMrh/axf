@@ -35,5 +35,11 @@ urlpatterns = [
     url(r'^payed/', views.order_payed, name='order_payed'),
 
     # 代付款订单支付
-    url(r'^waitPayToPayed/', views.wait_pay_to_payed, name='wait_pay_to_payed')
+    url(r'^waitPayToPayed/', views.wait_pay_to_payed, name='wait_pay_to_payed'),
+
+    # 全选
+    url(r'^changeCartAllSelect/', views.change_cart_all_select, name='change_cart_all_select'),
+
+    # 总价
+    url(r'^countPrice/', views.count_price, name='count_price'),
 ]

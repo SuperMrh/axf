@@ -17,7 +17,8 @@ class UserMiddle(MiddlewareMixin):
         need_login = ['/axf/mine/', '/axf/addCart/',
                       '/axf/subCart/', '/axf/cart/',
                       '/axf/generateOrder/', '/axf/waitPay/',
-                      '/axf/payed/']
+                      '/axf/payed/', '/axf/countPrice/',
+                      '/axf/changeCartAllSelect/']
         if request.path in need_login:
             # 先获取cookies中的ticket参数
             ticket = request.COOKIES.get('ticket')

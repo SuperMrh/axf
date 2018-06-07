@@ -282,3 +282,42 @@ def wait_pay_to_payed(request):
         order = OrderModel.objects.filter(id=order_id).first()
 
         return render(request, 'order/order_info.html', {'order': order})
+
+
+def change_cart_all_select(request):
+    if request.method == 'POST':
+        user = request.user
+        is_select = request.POST.get('all_select')
+        flag = False
+        user_carts = CartModel.objects.filter(user=user)
+        if is_select == '1':
+            CartModel.objects.filter(user=user).update(is_select=True)
+        else:
+            flag = True
+            CartModel.objects.filter(user=user).update(is_select=False)
+
+        data = {
+            'code': 200,
+            'ids': [u.id for u in user_carts],
+            'flag': flag
+        }
+        return JsonResponse(data)
+
+
+def count_price(request):
+
+    if request.method == 'GET':
+
+        user = request.user
+        user_carts = CartModel.objects.filter(user=user, is_select=True)
+        price = 0
+
+        for carts in user_carts:
+            price += carts.goods.price * carts.c_num
+        data = {
+            'code': 200,
+            'count_price': round(price,3),
+            'msg': '请求成功'
+        }
+        return JsonResponse(data)
+
