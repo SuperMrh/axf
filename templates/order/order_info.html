@@ -3,6 +3,7 @@
 
 {% block EXTJS %}
     <script type="text/javascript" src="{% static 'app/order/js/order.js' %}"></script>
+    <script type="text/javascript" src="{% static 'app/common/functions.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -24,8 +25,11 @@
         <!--订单处理结束-->
 
     </ul>
+        {% csrf_token %}
         <!--订单id展示-->
-        <button id="alipay" class="btn btn-success btn-block" orderid="">Alipay</button>
+        <button onclick="change_order({{ order.id }});" class="btn btn-success btn-block">
+            Alipay
+        </button>
 
     </div>
 

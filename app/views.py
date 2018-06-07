@@ -39,7 +39,20 @@ def mine(request):
     个人中心
     """
     if request.method == 'GET':
-        return render(request, 'mine/mine.html')
+        user = request.user
+        orders = OrderModel.objects.filter(user=user)
+        payed, wait_pay = 0, 0
+        for order in orders:
+            if order.o_status == 0:
+                wait_pay += 1
+            if order.o_status == 1:
+                payed += 1
+        data = {
+            'wait_pay': wait_pay,
+            'payed': payed
+        }
+
+        return render(request, 'mine/mine.html', data)
 
 
 def market(request):
@@ -224,5 +237,48 @@ def generate_order(request):
                                            order=order,
                                            goods_num=carts.c_num)
         user_carts.delete()
+
+        return render(request, 'order/order_info.html', {'order': order})
+
+
+def change_order_status(request):
+    """
+    修改订单状态
+    """
+    if request.method == 'POST':
+        order_id = request.POST.get('order_id')
+        OrderModel.objects.filter(id=order_id).update(o_status=1)
+
+        return JsonResponse({'code': 200, 'msg': '请求成功'})
+
+
+def order_wait_pay(request):
+    """
+    代付款 ，o_tatus=0
+    """
+    if request.method == 'GET':
+
+        user = request.user
+        orders = OrderModel.objects.filter(user=user, o_status=0)
+        return render(request, 'order/order_list_wait_pay.html', {'orders': orders})
+
+
+def order_payed(request):
+    """
+    待收货 o_status=1
+    """
+    if request.method == 'GET':
+        user = request.user
+        orders = OrderModel.objects.filter(user=user, o_status=1)
+        return render(request, 'order/order_list_payed.html', {'orders': orders})
+
+
+def wait_pay_to_payed(request):
+    """
+    代付款订单跳转到付款页面
+    """
+    if request.method == 'GET':
+        order_id = request.GET.get('order_id')
+        order = OrderModel.objects.filter(id=order_id).first()
 
         return render(request, 'order/order_info.html', {'order': order})

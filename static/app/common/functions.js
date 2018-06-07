@@ -80,3 +80,26 @@ function changeSelectStatus(cart_id){
         }
     });
 }
+
+
+function change_order(order_id){
+
+    var csrf = $('input[name="csrfmiddlewaretoken"]').val()
+
+    $.ajax({
+        url:'/axf/changeOrderStatus/',
+        type:'POST',
+        data:{'order_id': order_id},
+        dataType: 'json',
+        headers:{'X-CSRFToken': csrf},
+        success: function(msg){
+            if(msg.code == '200'){
+                location.href = '/axf/mine/'
+            }
+        },
+        error:function(msg){
+            alert('订单状态修改失败')
+        }
+
+    })
+}

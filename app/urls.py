@@ -25,5 +25,15 @@ urlpatterns = [
     # 下单
     url(r'^generateOrder/', views.generate_order, name='generate_order'),
 
+    # 修改订单状态
+    url(r'^changeOrderStatus/', views.change_order_status, name='change_order_status'),
 
+    # 代付款订单
+    url(r'^waitPay/', views.order_wait_pay, name='order_wait_pay'),
+
+    # 待收货
+    url(r'^payed/', views.order_payed, name='order_payed'),
+
+    # 代付款订单支付
+    url(r'^waitPayToPayed/', views.wait_pay_to_payed, name='wait_pay_to_payed')
 ]

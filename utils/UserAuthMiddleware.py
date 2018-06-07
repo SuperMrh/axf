@@ -16,7 +16,8 @@ class UserMiddle(MiddlewareMixin):
         # 需要登录验证，个人中心和购物车和商品的增删
         need_login = ['/axf/mine/', '/axf/addCart/',
                       '/axf/subCart/', '/axf/cart/',
-                      '/axf/generateOrder/']
+                      '/axf/generateOrder/', '/axf/waitPay/',
+                      '/axf/payed/']
         if request.path in need_login:
             # 先获取cookies中的ticket参数
             ticket = request.COOKIES.get('ticket')
