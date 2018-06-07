@@ -73,6 +73,12 @@
 		c2）ID2：全部类型的分类（0）
 		c3）ID3：综合排序的分类（0,1,2,3）
 
+部分功能图片: 以下展示首页
+
+![图](static/intro_images/django_axf_index.png)
+![图](static/intro_images/django_axf_index1.png)
+
+
 
 作业：先演示讲模板拆分为基础模板，然后通过继承挖坑等技术来完成模板的拆分
 
@@ -121,6 +127,14 @@
 	a）随机生成ticket，存放在cookies中，设置过期时间
 	b）userticket表中存用户和ticket的信息，以及过期时间，过期时间和cookies中的过期时间一致
 
+部分功能展示： 登录注册, 个人中心
+
+![图](static/intro_images/django_axf_login.png)
+![图](static/intro_images/django_axf_register.png)
+![图](static/intro_images/django_axf_mine.png)
+
+
+
 
 ### day03：
 
@@ -151,6 +165,11 @@ e）下单订单生成
 	3. 商品购物车中删除商品的个数为0时，该商品不展示
 	4. 闪购页面的商品数量数据的刷新，使用ajax去刷新
 
+部分功能展示：闪购，购物车
+
+![图](static/intro_images/django_axf_market.png)
+![图](static/intro_images/django_axf_cart.png)
+
 
 ### day04：
 
@@ -163,6 +182,12 @@ e）下单订单生成
 	b）个人中心的待支付页面，待收货页面
 
 	c）个人中心的待收货刷新，代付款订单个数刷新
+
+部分功能展示： 支付页面，待收货/代付款页面
+
+![图](static/intro_images/django_axf_generate_order.png)
+![图](static/intro_images/django_axf_wait_pay.png)
+![图](static/intro_images/django_axf_order_payed.png)
 
 
 ### day05:
