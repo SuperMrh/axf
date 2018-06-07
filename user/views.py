@@ -65,6 +65,7 @@ def login(request):
                 UserTicketModel.objects.create(user=user,
                                                out_time=out_time,
                                                ticket=ticket)
+
                 return response
             else:
                 msg = '密码错误'

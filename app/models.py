@@ -143,7 +143,7 @@ class OrderModel(models.Model):
 class OrderGoodsModel(models.Model):
     goods = models.ForeignKey(Goods)  # 关联的商品
     order = models.ForeignKey(OrderModel)  # 关联的订单
-    goods_num = models.IntegerField(default=1)  #  商品的个数
+    goods_num = models.IntegerField(default=1)  # 商品的个数
 
     class Meta:
         db_table = 'axf_order_goods'

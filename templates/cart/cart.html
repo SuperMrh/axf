@@ -8,6 +8,7 @@
 {% block EXTJS %}
     {{ block.super }}
     <script type="text/javascript" src="{% static 'app/cart/js/cart.js' %}"></script>
+    <script type="text/javascript" src="{% static 'app/common/functions.js' %}"></script>
 {% endblock %}
 
 
@@ -56,27 +57,30 @@
 
                     <ul>
                         <!--购物车信息展示-->
+                        {% csrf_token %}
+                        {% for cart in user_carts %}
                             <li class="menuList" cartid="">
                                 <div class="confirm">
-                                    <span class="is_choose" is_select="">
-
-                                            <span>√</span>
-
-                                            <span></span>
-
+                                    <span>
+                                        {% if cart.is_select == 1 %}
+                                            <span id="cart_id_{{ cart.id }}" onclick="changeSelectStatus({{ cart.id }});">√</span>
+                                        {% else %}
+                                            <span id="cart_id_{{ cart.id }}" onclick="changeSelectStatus({{ cart.id }});">x</span>
+                                        {% endif %}
 
                                     </span>
                                 </div>
                                 <a href="#">
-                                    <img src="" alt="">
-                                    <p></p>
+                                    <img src="{{ cart.goods.productimg }}" alt="">
+                                    <p>{{ cart.goods.productlongname }}</p>
                                 </a>
                                 <section>
-                                    <button class="subShopping">-</button>
-                                    <span></span>
-                                    <button class="addShopping">+</button>
+                                    <button onclick="subCart({{ cart.goods.id }})">-</button>
+                                    <span id="num_{{ cart.goods.id }}">{{ cart.c_num }}</span>
+                                    <button onclick="addCart({{ cart.goods.id }})">+</button>
                                 </section>
                             </li>
+                        {% endfor %}
                         <!--购物车数据处理结束-->
 
 
@@ -97,7 +101,7 @@
                                 <span>总价:</span>
                             </p>
 
-                            <span id="generate_order">下单</span>
+                            <span><a href="{% url 'axf:generate_order' %}">下单</a></span>
 
                         </li>
 

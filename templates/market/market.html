@@ -7,6 +7,7 @@
 
 {% block EXTJS %}
     <script type="text/javascript" src="{% static 'app/market/js/market.js' %}"></script>
+    <script type="text/javascript" src="{% static 'app/common/functions.js' %}"></script>
 {% endblock %}
 
 
@@ -44,6 +45,7 @@
 
             <menu>
                 <ul>
+                    {% csrf_token %}
                     {% for gds in goods %}
                     <!--商品信息展示-->
                         <li>
@@ -65,9 +67,19 @@
                                 </div>
                             </a>
                         <section>
-                            <button goodsid="" class="subShopping">-</button>
-                            <span>0</span>
-                            <button goodsid="" class="addShopping">+</button>
+                            <button goodsid="" onclick="subCart({{ gds.id }})">-</button>
+                            {% if user_cart %}
+                                {% for cart_goods in user_cart %}
+                                    {% ifequal cart_goods.goods.id gds.id %}
+                                        <span id="num_{{ gds.id }}">{{ cart_goods.c_num }}</span>
+                                    {% else %}
+                                        <span id="num_{{ gds.id }}">0</span>
+                                    {% endifequal %}
+                                 {% endfor %}
+                            {% else %}
+                                <span id="num_{{ gds.id }}">0</span>
+                            {% endif %}
+                            <button goodsid="" onclick="addCart({{ gds.id }})">+</button>
                         </section>
                         </li>
                     {% endfor %}
