@@ -20,10 +20,13 @@ from django.contrib.staticfiles.urls import static
 
 from axf import settings
 
+from app import views
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^axf/', include('app.urls', namespace='axf')),
     url(r'^user/', include('user.urls', namespace='user')),
+    url(r'^$', views.home)
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
